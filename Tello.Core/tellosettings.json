@@ -1,0 +1,17 @@
+{
+  "TelloSettings": {
+    "NetworkSetting": {
+      "SSID": "ID",
+      "Password": "",
+
+    },
+    "Connection": {
+      "Value": "connectionstring"
+    },
+    "Window": {
+      "Height": "11",
+      "Width": "11"
+    }
+  }
+}
+ 
