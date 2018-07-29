@@ -23,14 +23,33 @@ namespace TelloApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        NetworkController nc;
 
 
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            nc = new NetworkController();
+            DataContext = nc;
+        }
+
+        
+
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await nc.Scan();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await nc.Init();
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
 
         }
-        
     }
 
 

@@ -1,17 +1,12 @@
-{
-  "TelloSettings": {
-    "NetworkSetting": {
-      "SSID": "ID",
-      "Password": "",
-
+﻿{
+  "Network": {
+    "$type": "Tello.Core.NetworkSetting, Tello.Core",
+    "SSID": "",
+    "Password": "",
+    "IPv4": {
+      "Address": "192.168.10.1",
+      "Port": 8889
     },
-    "Connection": {
-      "Value": "connectionstring"
-    },
-    "Window": {
-      "Height": "11",
-      "Width": "11"
-    }
+    "AutoReconnect": true
   }
 }
- 

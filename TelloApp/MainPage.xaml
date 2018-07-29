@@ -10,14 +10,6 @@
 
 
     <Grid>
-        <Grid.Resources>
-            <local:NetworkInfoToStringConverter x:Key="Converter1"/>
-        </Grid.Resources>
-
-        <Button Content="Scan WiFi" HorizontalAlignment="Left" Margin="48,50,0,0" VerticalAlignment="Top" Height="56" Width="114" FontSize="16" Click="Button_Click" IsEnabled="{Binding Path = Initialized, Mode=OneWay}"/>
-        <ListView x:Name="AdapterList" HorizontalAlignment="Left" Margin="48,137,0,10" VerticalAlignment="Stretch" Width="324" ItemsSource="{Binding Path=Networks, Mode=OneWay}"/>
-        <TextBlock HorizontalAlignment="Left" Margin="179,68,0,0" Text="{Binding Path=Timestamp,Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="315" SelectionChanged="TextBlock_SelectionChanged"/>
-        <TextBlock HorizontalAlignment="Stretch" Margin="377,137,49,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" FontSize="16" Text="{Binding ElementName=AdapterList, Path=SelectedItem, Mode=OneWay, Converter={StaticResource Converter1}}"/>
 
     </Grid>
 </Page>

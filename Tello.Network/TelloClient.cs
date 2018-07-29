@@ -71,7 +71,20 @@ namespace Tello.Core.Network
             try
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(msg);
-                IByteBuffer buffer = Unpooled.WrappedBuffer(bytes);
+                await SendRawAsync(bytes);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Send message ({0}) failed. {1}", msg, ex.Message);
+            }
+        }
+
+
+        public async Task SendRawAsync(byte[] rawData)
+        {
+            try
+            {
+                IByteBuffer buffer = Unpooled.WrappedBuffer(rawData);
                 await clientChannel.WriteAndFlushAsync(
                     new DatagramPacket(
                         buffer,
@@ -79,7 +92,7 @@ namespace Tello.Core.Network
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Send message ({0}) failed. {1}", msg, ex.Message);
+                logger.LogError(ex, "Send message ({0}) failed. {1}", string.Join(",", rawData), ex.Message);
             }
         }
 

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Tello.Core
 {
-    public class TelloLogging : ILoggerFactory
+    public class TelloLoggerFactory : ILoggerFactory
     {
         private readonly ILoggerFactory defaultFactory;
 
-        public TelloLogging()
+        public TelloLoggerFactory()
         {
             defaultFactory = new LoggerFactory()
                 .AddDebug(minLevel: LogLevel.Debug);
