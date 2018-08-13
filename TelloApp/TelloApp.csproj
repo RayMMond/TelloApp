@@ -130,11 +130,26 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
     </PackageReference>
+    <PackageReference Include="SimpleInjector">
+      <Version>4.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tello.Copter\Tello.Copter.csproj">
+      <Project>{ced0afdf-f8e9-4032-b7df-cf2e480f3ba5}</Project>
+      <Name>Tello.Copter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tello.Core\Tello.Core.csproj">
       <Project>{064341fa-629c-4d6b-987f-d8dabaf89066}</Project>
       <Name>Tello.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tello.Network.UWP\Tello.Network.UWP.csproj">
+      <Project>{a10d592c-1ee4-4ed2-b42c-c4f237adf805}</Project>
+      <Name>Tello.Network.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tello.Network\Tello.Network.csproj">
+      <Project>{a82a369b-9066-433c-b797-f1410455e901}</Project>
+      <Name>Tello.Network</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

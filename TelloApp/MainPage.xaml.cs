@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Tello.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,14 +24,26 @@ namespace TelloApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        ITelloController telloController;
 
 
         public MainPage()
         {
             InitializeComponent();
 
+            telloController = App.Container.GetInstance<ITelloController>();
+            telloController.ConnectionController.VideoStreamReceived += ConnectionController_VideoStreamReceived;
         }
-        
+
+        private void ConnectionController_VideoStreamReceived(object sender, VideoStreamReceivedEventArgs e)
+        {
+
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await telloController.ConnectionController.ConnectAsync();
+        }
     }
 
 

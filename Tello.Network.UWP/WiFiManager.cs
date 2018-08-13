@@ -9,14 +9,18 @@
     using Windows.Devices.WiFi;
     using System.Collections.Generic;
     using Windows.Security.Credentials;
+    using Microsoft.Extensions.Logging;
 
     public class WiFiManager : IWiFiManager
     {
         WiFiAvailableNetwork availableNetwork;
+        private ILogger logger;
 
-        public WiFiManager(INetworkSetting networkSetting)
+        public WiFiManager(ILoggerFactory loggerFactory,
+            INetworkSetting networkSetting)
         {
             Setting = networkSetting ?? throw new ArgumentNullException(nameof(networkSetting));
+            logger = loggerFactory?.CreateLogger<WiFiManager>() ?? throw new ArgumentNullException(nameof(loggerFactory));
             IsConnected = false;
 
 
@@ -84,11 +88,13 @@
                 }
                 else
                 {
+                    logger.LogError($"Can not find SSID:{Setting.SSID}.");
                     throw new InvalidOperationException($"Can not find SSID:{Setting.SSID}.");
                 }
             }
             else
             {
+                logger.LogError("Can not find any WiFi signal.");
                 throw new InvalidOperationException("Can not find any WiFi signal.");
             }
         }
@@ -124,6 +130,7 @@
                 }
                 else
                 {
+                    logger.LogError("No WiFi adapter was found.");
                     throw new InvalidOperationException("No WiFi adapter was found.");
                 }
             }
@@ -136,6 +143,7 @@
                 }
                 else
                 {
+                    logger.LogError($"Can not find WiFi adapter, name:{Setting.WiFiAdapterName}.");
                     throw new InvalidOperationException($"Can not find WiFi adapter, name:{Setting.WiFiAdapterName}.");
                 }
             }

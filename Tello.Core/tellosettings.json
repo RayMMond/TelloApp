@@ -7,6 +7,7 @@
       "Address": "192.168.10.1",
       "Port": 8889
     },
+    "VideoStreamPort": 6038,
     "AutoReconnect": true
   }
 }

@@ -94,6 +94,7 @@ namespace Tello.Core
             SSID = Password = "";
             IPv4 = new IPEndPoint(IPAddress.Broadcast, 8889);
             AutoReconnect = true;
+            VideoStreamPort = 6038;
         }
 
         [JsonProperty]
@@ -107,6 +108,9 @@ namespace Tello.Core
 
         [JsonProperty]
         public IPEndPoint IPv4 { get; set; }
+
+        [JsonProperty]
+        public int VideoStreamPort { get; set; }
 
         [JsonProperty]
         public bool AutoReconnect { get; set; }

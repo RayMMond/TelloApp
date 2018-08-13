@@ -8,13 +8,12 @@ using Tello.Core;
 
 namespace Tello.Core
 {
-    public class Tello
+    public class TelloController : ITelloController
     {
-        private IConnectionController networkController;
         private ILogger logger;
 
 
-        public Tello(ILoggerFactory loggerFactory,
+        public TelloController(ILoggerFactory loggerFactory,
               TelloSettings settings,
               IConnectionController controller)
         {
@@ -23,18 +22,17 @@ namespace Tello.Core
                 throw new ArgumentNullException(nameof(loggerFactory));
             }
 
-            logger = loggerFactory.CreateLogger<Tello>();
+            logger = loggerFactory.CreateLogger<TelloController>();
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
-            networkController = controller ?? throw new ArgumentNullException(nameof(controller));
+            ConnectionController = controller ?? throw new ArgumentNullException(nameof(controller));
+
         }
 
-
+        public IConnectionController ConnectionController { get; }
 
 
 
         public TelloSettings Settings { get; private set; }
-
-
 
 
 

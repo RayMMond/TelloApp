@@ -28,10 +28,7 @@ namespace Tello.Core.Network
 
             this.setting = setting ?? throw new ArgumentNullException(nameof(setting));
 
-
-            if (loggerFactory == null)
-                throw new ArgumentNullException(nameof(loggerFactory));
-            logger = loggerFactory.CreateLogger<TelloClient>();
+            logger = loggerFactory?.CreateLogger<TelloClient>() ?? throw new ArgumentNullException(nameof(loggerFactory));
 
             if (InternalLoggerFactory.DefaultFactory.GetType() != loggerFactory.GetType())
                 InternalLoggerFactory.DefaultFactory = loggerFactory;
@@ -42,7 +39,7 @@ namespace Tello.Core.Network
 
 
 
-        public async Task<bool> BindPortAsync(SimpleChannelInboundHandler<DatagramPacket> telloClientHandler)
+        public async Task<bool> BindPortAsync(SimpleChannelInboundHandler<DatagramPacket> telloClientHandler, string name)
         {
             try
             {
@@ -53,7 +50,7 @@ namespace Tello.Core.Network
                     .Option(ChannelOption.SoBroadcast, true)
                     .Handler(new ActionChannelInitializer<IChannel>(channel =>
                     {
-                        channel.Pipeline.AddLast("Tello", telloClientHandler);
+                        channel.Pipeline.AddLast(name, telloClientHandler);
                     }));
 
                 clientChannel = await bootstrap.BindAsync(IPEndPoint.MinPort);
@@ -84,11 +81,7 @@ namespace Tello.Core.Network
         {
             try
             {
-                IByteBuffer buffer = Unpooled.WrappedBuffer(rawData);
-                await clientChannel.WriteAndFlushAsync(
-                    new DatagramPacket(
-                        buffer,
-                        setting.IPv4));
+                await clientChannel.SendRawAsync(rawData, setting.IPv4);
             }
             catch (Exception ex)
             {

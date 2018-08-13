@@ -1,8 +1,13 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using SimpleInjector;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Tello.Core;
+using Tello.Core.Network;
+using Tello.Core.Network.UWP;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -22,6 +27,23 @@ namespace TelloApp
     /// </summary>
     sealed partial class App : Application
     {
+        public static readonly Container Container;
+        static App()
+        {
+            Container = new Container();
+            Container.Register<ILoggerFactory, TelloLoggerFactory>(Lifestyle.Singleton);
+            Container.Register<TelloSettings, TelloSettings>(Lifestyle.Singleton);
+            Container.Register<TelloClientHandler, TelloClientHandler>(Lifestyle.Singleton);
+            Container.Register<INetworkSetting, NetworkSetting>(Lifestyle.Singleton);
+            Container.Register<IWiFiManager, WiFiManager>(Lifestyle.Singleton);
+            Container.Register<ITelloClient, TelloClient>(Lifestyle.Singleton);
+            Container.Register<IConnectionController, ConnectionController>(Lifestyle.Singleton);
+            Container.Register<ITelloController, TelloController>(Lifestyle.Singleton);
+
+            Container.Verify();
+
+        }
+
         /// <summary>
         /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
         /// 已执行，逻辑上等同于 main() 或 WinMain()。

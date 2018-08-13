@@ -6,6 +6,7 @@
     {
         bool AutoReconnect { get; set; }
         IPEndPoint IPv4 { get; set; }
+        int VideoStreamPort { get; set; }
         string Password { get; set; }
         string SSID { get; set; }
         string WiFiAdapterName { get; set; }

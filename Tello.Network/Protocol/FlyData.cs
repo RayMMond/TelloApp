@@ -117,7 +117,7 @@ namespace Tello.Network.Protocol
             index += 1;
             temperatureHeight = (data[index] >> 0 & 0x1);//23
 
-            wifiStrength = Tello.wifiStrength;//Wifi str comes in a cmd.
+            //wifiStrength = Tello.wifiStrength;//Wifi str comes in a cmd.
         }
 
 

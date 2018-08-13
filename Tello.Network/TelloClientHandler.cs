@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Tello.Network.Protocol;
 
 namespace Tello.Core.Network
 {
@@ -28,6 +31,7 @@ namespace Tello.Core.Network
                 return;
             }
 
+
             try
             {
                 var received = packet.Content;
@@ -37,8 +41,7 @@ namespace Tello.Core.Network
                 {
                     Connected?.Invoke(this, EventArgs.Empty);
 
-                    startHeartbeat();
-                    requestIframe();
+                    // requestIframe();
                     //for(int i=74;i<80;i++)
                     //queryUnk(i);
                     //Console.WriteLine("Tello connected!");
@@ -228,21 +231,15 @@ namespace Tello.Core.Network
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Receive thread error:" + ex.Message);
+                logger.LogError(ex, ex.Message);
+                //Console.WriteLine("Receive thread error:" + ex.Message);
                 //disconnect();
                 //break;
             }
-
-
-
-
-
-            //string message = packet.Content.ToString(Encoding.UTF8);
-            //logger.LogDebug("Received Message => {0}", message);
-
-
-            //ctx.CloseAsync();
+            
         }
+
+
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
